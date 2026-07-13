@@ -63,10 +63,15 @@ function updateCountdown() {
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
 
-  cdDays.textContent = pad(days);
-  cdHours.textContent = pad(hours);
-  cdMinutes.textContent = pad(minutes);
-  cdSeconds.textContent = pad(seconds);
+  const newDays = pad(days), newHours = pad(hours), newMinutes = pad(minutes), newSecs = pad(seconds);
+
+  if (cdDays.textContent !== newDays) cdDays.textContent = newDays;
+  if (cdHours.textContent !== newHours) cdHours.textContent = newHours;
+  if (cdMinutes.textContent !== newMinutes) cdMinutes.textContent = newMinutes;
+  if (cdSeconds.textContent !== newSecs) cdSeconds.textContent = newSecs;
+
+  cdSeconds.classList.add('tick');
+  setTimeout(() => cdSeconds.classList.remove('tick'), 150);
 }
 
 let countdownInterval;

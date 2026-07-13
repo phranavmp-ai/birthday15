@@ -165,39 +165,105 @@ h1,h2{ font-family:'Playfair Display', serif; margin:0; }
 
 .countdown-grid{
   display:flex;
-  gap: 18px;
+  gap: 22px;
   flex-wrap: wrap;
   justify-content:center;
 }
 
 .count-card{
-  background: rgba(255,255,255,0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.6);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-soft);
-  padding: 22px 26px;
-  min-width: 96px;
-  transition: transform 0.4s var(--ease);
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 2px solid rgba(255,95,162,0.2);
+  border-radius: 24px;
+  box-shadow: var(--shadow-deep), 0 0 30px rgba(255,95,162,0.1);
+  padding: 30px 36px;
+  min-width: 130px;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
 }
-.count-card:hover{ transform: translateY(-6px); }
+.count-card::before{
+  content:'';
+  position:absolute;
+  top:-50%; left:-50%;
+  width:200%; height:200%;
+  background: conic-gradient(from 0deg, transparent, rgba(255,95,162,0.08), transparent 30%);
+  animation: cardSpin 6s linear infinite;
+}
+@keyframes cardSpin{
+  100%{ transform: rotate(360deg); }
+}
+.count-card:hover{ transform: translateY(-8px) scale(1.04); box-shadow: 0 24px 60px rgba(255,95,162,0.35); }
 
 .count-number{
   display:block;
   font-family:'Playfair Display', serif;
-  font-size: clamp(28px, 5vw, 42px);
+  font-size: clamp(42px, 7vw, 64px);
   font-weight:700;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
+  position:relative;
+  z-index:1;
+  text-shadow: 0 2px 12px rgba(255,95,162,0.3);
+  transition: transform 0.15s ease;
+}
+.count-number.tick{
+  transform: scale(1.08);
 }
 .count-label{
   display:block;
-  margin-top:6px;
-  font-size: 12px;
-  letter-spacing:1.5px;
+  margin-top:10px;
+  font-size: 13px;
+  letter-spacing:2px;
   text-transform:uppercase;
   color: var(--ink-soft);
+  position:relative;
+  z-index:1;
+  font-weight:500;
+}
+
+.live-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:30px;
+  padding:8px 20px;
+  border-radius:50px;
+  background:rgba(255,95,162,0.1);
+  border:1px solid rgba(255,95,162,0.25);
+  font-size:13px;
+  font-weight:600;
+  color:var(--accent);
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.live-dot{
+  width:10px; height:10px;
+  border-radius:50%;
+  background:var(--accent);
+  animation: livePulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--accent);
+}
+@keyframes livePulse{
+  0%,100%{ opacity:1; transform:scale(1); box-shadow: 0 0 8px var(--accent); }
+  50%{ opacity:0.5; transform:scale(0.8); box-shadow: 0 0 16px var(--accent); }
+}
+
+.colon-separator{
+  display:flex;
+  align-items:center;
+  padding-bottom:28px;
+  font-family:'Playfair Display', serif;
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight:700;
+  color: var(--accent);
+  opacity:0.6;
+  animation: colonBlink 1s step-end infinite;
+}
+@keyframes colonBlink{
+  0%,100%{ opacity:0.6; }
+  50%{ opacity:0.15; }
 }
 
 .loading-hearts{ margin-top: 44px; display:flex; gap:10px; }
@@ -540,11 +606,13 @@ h1,h2{ font-family:'Playfair Display', serif; margin:0; }
    RESPONSIVE
    ========================================================= */
 @media (max-width: 640px){
-  .count-card{ min-width: 72px; padding: 16px 14px; }
-  .countdown-grid{ gap: 10px; }
+  .count-card{ min-width: 72px; padding: 20px 16px; }
+  .countdown-grid{ gap: 8px; }
+  .colon-separator{ font-size: 28px; padding-bottom:22px; }
   .proposal-buttons{ gap: 18px; }
   .yes-btn, .no-btn{ padding: 16px 30px; font-size: 15px; }
   .cake{ transform: scale(0.85); }
+  .live-badge{ font-size:11px; padding:6px 14px; }
 }
 
 /* Respect reduced motion */
