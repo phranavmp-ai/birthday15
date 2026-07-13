@@ -147,6 +147,28 @@ h1,h2{ font-family:'Playfair Display', serif; margin:0; }
   margin-bottom: 14px;
 }
 
+/* ---------- Photo frame ---------- */
+.photo-frame{
+  margin-bottom: 30px;
+  position:relative;
+  z-index:1;
+}
+.hero-photo{
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--accent);
+  box-shadow: 0 0 30px rgba(255,95,162,0.4), 0 0 60px rgba(255,95,162,0.15);
+  animation: photoFloat 4s ease-in-out infinite;
+  transition: transform 0.4s var(--ease);
+}
+.hero-photo:hover{ transform: scale(1.08); }
+@keyframes photoFloat{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-8px); }
+}
+
 /* ---------- Countdown screen ---------- */
 .countdown-heading{
   font-size: clamp(28px, 5vw, 48px);
