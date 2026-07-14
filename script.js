@@ -387,10 +387,15 @@ musicBtn.addEventListener('click', () => {
     playTrack(currentTrack);
     musicBtn.classList.add('playing');
     musicPlaying = true;
-  } else {
-    currentTrack = (currentTrack + 1) % tracks.length;
+  } else if (currentTrack < tracks.length - 1) {
+    currentTrack++;
     stopAllTracks();
     playTrack(currentTrack);
+  } else {
+    stopAllTracks();
+    musicBtn.classList.remove('playing');
+    musicPlaying = false;
+    currentTrack = 0;
   }
 });
 
