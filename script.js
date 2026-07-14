@@ -366,19 +366,31 @@ document.addEventListener('click', (e) => {
    ========================================================= */
 const musicBtn = document.getElementById('music-toggle');
 const bgMusic = document.getElementById('bg-music');
+const bgMusic2 = document.getElementById('bg-music-2');
+const tracks = [bgMusic, bgMusic2];
+let currentTrack = 0;
 let musicPlaying = false;
+
+function playTrack(index) {
+  tracks.forEach((t, i) => {
+    if (i === index) { t.currentTime = 0; t.play().catch(() => {}); }
+    else { t.pause(); t.currentTime = 0; }
+  });
+}
+
+function stopAllTracks() {
+  tracks.forEach(t => { t.pause(); t.currentTime = 0; });
+}
 
 musicBtn.addEventListener('click', () => {
   if (!musicPlaying) {
-    bgMusic.play().catch(() => {
-      /* Autoplay restrictions or missing audio source — fail silently */
-    });
+    playTrack(currentTrack);
     musicBtn.classList.add('playing');
     musicPlaying = true;
   } else {
-    bgMusic.pause();
-    musicBtn.classList.remove('playing');
-    musicPlaying = false;
+    currentTrack = (currentTrack + 1) % tracks.length;
+    stopAllTracks();
+    playTrack(currentTrack);
   }
 });
 
